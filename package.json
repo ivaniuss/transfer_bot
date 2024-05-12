@@ -1,6 +1,9 @@
 {
   "name": "transfer_bot",
   "version": "1.0.0",
+  "engines": {
+    "node": "20.13.1"
+  },
   "description": "",
   "main": "index.js",
   "type": "module",
