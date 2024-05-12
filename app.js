@@ -1,6 +1,7 @@
-import express from 'express'
-import bodyParser from 'body-parser'
-import { Alchemy, Network, Wallet, Utils } from "alchemy-sdk";
+const express = require('express');
+const bodyParser = require('body-parser');
+const { Alchemy, Network, Wallet, Utils } = require('alchemy-sdk');
+require('dotenv').config();
 
 const {PRIVATE_KEY, ARB_API_KEY} = process.env
 let wallet = new Wallet(PRIVATE_KEY);
