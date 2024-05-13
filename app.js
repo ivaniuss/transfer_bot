@@ -19,36 +19,36 @@ app.use(bodyParser.json())
 const port = 3000 || process.env.PORT
 
 app.post('/webhook', async (req, res) => {
-  try {
-    const balance = await alchemy.core.getBalance(wallet.address, 'latest');
-    const gasPrice = Utils.parseUnits("0.02", "gwei")
-    const maxGas = 42000; 
-    const gasCost = gasPrice.mul(maxGas); 
-    const sendValue = balance.sub(gasCost); 
-    if (sendValue.lt(0)) {
-      throw new Error('Insufficient funds for transaction');
-    }
+  // try {
+  //   const balance = await alchemy.core.getBalance(wallet.address, 'latest');
+  //   const gasPrice = Utils.parseUnits("0.02", "gwei")
+  //   const maxGas = 42000; 
+  //   const gasCost = gasPrice.mul(maxGas); 
+  //   const sendValue = balance.sub(gasCost); 
+  //   if (sendValue.lt(0)) {
+  //     throw new Error('Insufficient funds for transaction');
+  //   }
 
-    const transaction = {
-      to: toAddress,
-      value: sendValue,
-      gasLimit: String(maxGas),
-      maxPriorityFeePerGas: gasPrice,
-      maxFeePerGas: gasPrice,
-      nonce: await alchemy.core.getTransactionCount(wallet.address, "latest"),
-      type: 2,
-      chainId: 42161,
-    };
+  //   const transaction = {
+  //     to: toAddress,
+  //     value: sendValue,
+  //     gasLimit: String(maxGas),
+  //     maxPriorityFeePerGas: gasPrice,
+  //     maxFeePerGas: gasPrice,
+  //     nonce: await alchemy.core.getTransactionCount(wallet.address, "latest"),
+  //     type: 2,
+  //     chainId: 42161,
+  //   };
 
-    const rawTransaction = await wallet.signTransaction(transaction);
-    const tx = await alchemy.core.sendTransaction(rawTransaction);
+  //   const rawTransaction = await wallet.signTransaction(transaction);
+  //   const tx = await alchemy.core.sendTransaction(rawTransaction);
 
-    console.log("Transacción enviada:", tx);
-    res.status(200).json({ message: 'success transaction', transaction: tx });
-  } catch (error) {
-    console.error("Error al enviar la transacción:", error);
-    res.status(500).json({ error: 'Error when making transaction', message: error.message });
-  }
+  //   console.log("Transacción enviada:", tx);
+  //   res.status(200).json({ message: 'success transaction', transaction: tx });
+  // } catch (error) {
+  //   console.error("Error al enviar la transacción:", error);
+  //   res.status(500).json({ error: 'Error when making transaction', message: error.message });
+  // }
 });
 
 app.listen(port, () => {
